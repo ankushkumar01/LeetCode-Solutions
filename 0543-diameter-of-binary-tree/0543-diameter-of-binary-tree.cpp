@@ -15,12 +15,15 @@ public:
         if (root== nullptr) return 0;
         return 1 + max(level (root->left), level (root->right));
     }
-    int d=0;
-    int diameterOfBinaryTree(TreeNode* root) {
-        if (root== nullptr) return 0;
+    void helper(TreeNode* root, int & d){
+        if (root== nullptr) return;
         d=max(d, level(root->left)+ level(root->right));
-        diameterOfBinaryTree(root->left);
-        diameterOfBinaryTree(root->right);
-        return d;
+        helper(root->left,d);
+        helper(root->right,d);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+       int d=0;
+       helper(root, d);
+       return d;
     }
 };
